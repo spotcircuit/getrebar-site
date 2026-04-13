@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rebar — Structural Memory for Claude Code</title>
+  <meta name="description" content="23 slash commands that give Claude Code long-term project memory. Your AI never asks the same question twice.">
+  <meta property="og:title" content="Rebar — Structural Memory for Claude Code">
+  <meta property="og:description" content="Claude Code forgets everything between sessions. Rebar fixes that.">
+  <meta property="og:url" content="https://getrebar.dev">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔩</text></svg>">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #e5e5e5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero {
+      max-width: 720px;
+      padding: 80px 24px 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .tagline {
+      font-size: 20px;
+      color: #a3a3a3;
+      margin-bottom: 32px;
+    }
+
+    .pitch {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #d4d4d4;
+      margin-bottom: 40px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: #0a0a0a;
+    }
+    .btn-primary:hover { background: #e5e5e5; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #e5e5e5;
+      border: 1px solid #333;
+    }
+    .btn-secondary:hover { border-color: #666; }
+
+    .install {
+      background: #1a1a1a;
+      border: 1px solid #262626;
+      border-radius: 8px;
+      padding: 16px 24px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 14px;
+      color: #a3e635;
+      margin-bottom: 64px;
+      text-align: left;
+      max-width: 520px;
+      width: 100%;
+      position: relative;
+    }
+
+    .install .comment { color: #525252; }
+    .install .cmd { color: #a3e635; }
+
+    .problem {
+      max-width: 720px;
+      padding: 0 24px 48px;
+    }
+
+    .problem h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .comparison-card {
+      background: #1a1a1a;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .comparison-card.bad { border-color: #7f1d1d; }
+    .comparison-card.good { border-color: #14532d; }
+
+    .comparison-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .comparison-card.bad h3 { color: #ef4444; }
+    .comparison-card.good h3 { color: #22c55e; }
+
+    .comparison-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #a3a3a3;
+    }
+    .comparison-card code {
+      background: #262626;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #d4d4d4;
+    }
+
+    .features {
+      max-width: 720px;
+      padding: 0 24px 64px;
+    }
+
+    .features h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .feature {
+      background: #1a1a1a;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: #a3a3a3;
+      line-height: 1.5;
+    }
+
+    .feature .count {
+      font-size: 32px;
+      font-weight: 800;
+      color: #a3e635;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      padding: 40px 24px;
+      text-align: center;
+      color: #525252;
+      font-size: 13px;
+      border-top: 1px solid #1a1a1a;
+      width: 100%;
+    }
+
+    footer a { color: #737373; text-decoration: none; }
+    footer a:hover { color: #a3a3a3; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 36px; }
+      .tagline { font-size: 16px; }
+      .pitch { font-size: 16px; }
+      .comparison { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Rebar</h1>
+    <p class="tagline">Structural memory for Claude Code</p>
+    <p class="pitch">
+      Claude Code forgets everything between sessions. Rebar fixes that.<br>
+      23 slash commands that capture, validate, and compound project knowledge.<br>
+      You explain your project once. Every session after that starts with full context.
+    </p>
+
+    <div class="cta-row">
+      <a href="https://github.com/spotcircuit/rebar" class="btn btn-primary">View on GitHub</a>
+      <a href="https://github.com/spotcircuit/rebar/blob/master/wiki/getting-started.md" class="btn btn-secondary">Getting Started</a>
+    </div>
+
+    <div class="install">
+      <span class="comment"># Clone and start using immediately</span><br>
+      <span class="cmd">git clone https://github.com/spotcircuit/rebar.git</span><br>
+      <span class="cmd">cd rebar</span><br>
+      <br>
+      <span class="comment"># In Claude Code:</span><br>
+      <span class="cmd">/create my-project</span><br>
+      <span class="cmd">/discover my-project</span>
+    </div>
+  </div>
+
+  <div class="problem">
+    <h2>The Problem</h2>
+    <div class="comparison">
+      <div class="comparison-card bad">
+        <h3>Without Rebar</h3>
+        <p>
+          Session 1: "Here's our architecture..."<br>
+          Session 2: "Remember yesterday? We use..."<br>
+          Session 3: "So like I was saying..."<br><br>
+          Every session starts from zero. Project context lives in your head.
+        </p>
+      </div>
+      <div class="comparison-card good">
+        <h3>With Rebar</h3>
+        <p>
+          Session 1: <code>/discover</code> captures everything<br>
+          Session 2: Claude reads <code>expertise.yaml</code><br>
+          Session 3: Claude already knows<br><br>
+          <code>/improve</code> validates what's true. Context compounds.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <h2>What You Get</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="count">23</div>
+        <h3>Slash Commands</h3>
+        <p>Project context, dev workflow, wiki management, and advanced orchestration. Clone the repo and they just work.</p>
+      </div>
+      <div class="feature">
+        <div class="count">3</div>
+        <h3>Knowledge Systems</h3>
+        <p><code>expertise.yaml</code> for project state. <code>.claude/memory/</code> for preferences. <code>wiki/</code> for durable knowledge.</p>
+      </div>
+      <div class="feature">
+        <div class="count">7</div>
+        <h3>Background Agents</h3>
+        <p>Optional Paperclip agents that validate expertise, process wiki intake, and keep things fresh.</p>
+      </div>
+      <div class="feature">
+        <div class="count">1</div>
+        <h3>Validation Loop</h3>
+        <p><code>/improve</code> checks observations against live code. Promotes what's true. Discards what's stale. Your context gets more accurate over time.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://github.com/spotcircuit/rebar">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/spotcircuit/rebar/blob/master/wiki/getting-started.md">Docs</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/spotcircuit/rebar/blob/master/LICENSE">MIT License</a>
+    &nbsp;&middot;&nbsp;
+    Built by <a href="https://github.com/spotcircuit">SpotCircuit</a>
+  </footer>
+
+</body>
+</html>
