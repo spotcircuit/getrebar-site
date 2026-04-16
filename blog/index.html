@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Rebar</title>
+  <meta name="description" content="Notes on Claude Code, project memory, and building with Rebar.">
+  <link rel="canonical" href="https://getrebar.dev/blog/">
+  <meta property="og:title" content="Blog — Rebar">
+  <meta property="og:description" content="Notes on Claude Code, project memory, and building with Rebar.">
+  <meta property="og:url" content="https://getrebar.dev/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Rebar">
+  <meta property="og:image" content="https://getrebar.dev/og-default.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog — Rebar">
+  <meta name="twitter:description" content="Notes on Claude Code, project memory, and building with Rebar.">
+  <meta name="twitter:image" content="https://getrebar.dev/og-default.png">
+  <link rel="alternate" type="application/rss+xml" title="Rebar Blog" href="/blog/rss.xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔩</text></svg>">
+  <style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { color-scheme: dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #0a0a0a;
+    color: #e5e5e5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.6;
+  }
+  a { color: #a3e635; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header.site {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  header.site .brand { font-weight: 800; color: #fff; font-size: 18px; letter-spacing: -0.5px; }
+  header.site nav a { color: #a3a3a3; margin-left: 20px; font-size: 14px; }
+  header.site nav a:hover { color: #fff; text-decoration: none; }
+  main { width: 100%; max-width: 720px; padding: 24px; flex: 1; }
+  footer.site {
+    padding: 40px 24px;
+    text-align: center;
+    color: #525252;
+    font-size: 13px;
+    border-top: 1px solid #1a1a1a;
+    width: 100%;
+    margin-top: 64px;
+  }
+  footer.site a { color: #737373; }
+  footer.site a:hover { color: #a3a3a3; text-decoration: none; }
+
+  .page-title { font-size: 36px; font-weight: 800; color: #fff; margin: 24px 0 8px; letter-spacing: -0.5px; }
+  .page-sub { color: #a3a3a3; margin-bottom: 40px; font-size: 16px; }
+  .post-list { display: flex; flex-direction: column; gap: 24px; }
+  .post-card {
+    background: #1a1a1a;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .post-card:hover { border-color: #404040; }
+  .post-card a.title-link { color: #fff; text-decoration: none; }
+  .post-card a.title-link:hover { color: #a3e635; }
+  .post-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+  .post-meta { font-size: 13px; color: #737373; margin-bottom: 12px; }
+  .post-meta .tag {
+    display: inline-block;
+    background: #262626;
+    color: #d4d4d4;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 12px;
+  }
+  .post-card p.desc { color: #a3a3a3; font-size: 15px; }
+  .empty {
+    background: #1a1a1a;
+    border: 1px dashed #333;
+    border-radius: 12px;
+    padding: 48px 24px;
+    text-align: center;
+    color: #737373;
+  }
+
+  @media (max-width: 640px) {
+    header.site { flex-direction: column; gap: 12px; }
+    header.site nav a { margin: 0 10px; }
+    .page-title, .post-head h1 { font-size: 28px; }
+    .prose { font-size: 16px; }
+  }
+</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Rebar Blog","description":"Notes on Claude Code, project memory, and building with Rebar.","url":"https://getrebar.dev/blog/","blogPost":[{"@type":"BlogPosting","headline":"Hello, Rebar","description":"Why we built Rebar, what it does, and why Claude Code's session amnesia is worth fixing.","datePublished":"2026-04-16","url":"https://getrebar.dev/blog/hello-rebar/","author":{"@type":"Person","name":"SpotCircuit"}}]}</script>
+</head>
+<body>
+  
+  <header class="site">
+    <a href="/" class="brand">Rebar</a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="https://github.com/spotcircuit/rebar">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">Blog</h1>
+    <p class="page-sub">Notes on Claude Code, project memory, and building with Rebar.</p>
+    <div class="post-list">
+      <article class="post-card">
+        <h2><a class="title-link" href="/blog/hello-rebar/">Hello, Rebar</a></h2>
+        <div class="post-meta">
+          <time datetime="2026-04-16">April 16, 2026</time>
+          &nbsp;&middot;&nbsp; SpotCircuit
+          <br><span class="tag">rebar</span><span class="tag">claude-code</span><span class="tag">intro</span>
+        </div>
+        <p class="desc">Why we built Rebar, what it does, and why Claude Code&#39;s session amnesia is worth fixing.</p>
+      </article></div>
+  </main>
+  
+  <footer class="site">
+    <a href="https://github.com/spotcircuit/rebar">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="/blog/">Blog</a>
+    &nbsp;&middot;&nbsp;
+    <a href="/blog/rss.xml">RSS</a>
+    &nbsp;&middot;&nbsp;
+    Built by <a href="https://github.com/spotcircuit">SpotCircuit</a>
+  </footer>
+
+</body>
+</html>

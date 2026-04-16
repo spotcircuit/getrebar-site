@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rebar Blog</title>
+    <link>https://getrebar.dev/blog/</link>
+    <atom:link href="https://getrebar.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Notes on Claude Code, project memory, and building with Rebar.</description>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Apr 2026 15:55:28 GMT</lastBuildDate>
+    <item>
+      <title>Hello, Rebar</title>
+      <link>https://getrebar.dev/blog/hello-rebar/</link>
+      <guid isPermaLink="true">https://getrebar.dev/blog/hello-rebar/</guid>
+      <description>Why we built Rebar, what it does, and why Claude Code&#39;s session amnesia is worth fixing.</description>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 GMT</pubDate>
+      <author>noreply@getrebar.dev (SpotCircuit)</author>
+      <category>rebar</category>
+      <category>claude-code</category>
+      <category>intro</category>
+    </item>
+  </channel>
+</rss>
